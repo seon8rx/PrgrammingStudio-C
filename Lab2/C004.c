@@ -1,4 +1,4 @@
-// Enter your student ID and Fullname
+// 22100110 김성규
 
 #include <stdio.h>
 #include <stdlib.h>
