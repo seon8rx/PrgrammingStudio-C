@@ -135,8 +135,8 @@ int addNewClass(struct st_class* c[], int csize){
 // You must complete this function.
 
 	struct st_class* p = (struct st_class*)malloc(sizeof(struct st_class));
-	int w = 0;
-	while(w==0){
+	
+	while(1){
 		printf(">> code number > ");
 		scanf("%d", &(p->code));
 		int ww=0;
