@@ -166,10 +166,23 @@ void editClass(struct st_class* c[], int csize){
 	printf(">> Enter a code of class > ");
 	scanf("%d", &code);
 
-	
-	// You must complete this section.
+	while(1){
+		int code_check = 0;
 
+		for(int i = 0; i<csize; i++){
+			if(code == c[i]->code){
+				code_check=1;
+				p=c[i];
+			} 
+		}
 
+		if(code_check==0){
+			printf("> No such class.\n");
+			printf(">> Enter a code of class > ");
+			scanf("%d", &code);
+		}else if(code_check==1) break;
+
+	}
 	
 	printf("> Current: [%d] %s [credits %d - %s]\n",p->code, p->name, p->unit, kname[p->grading-1]);
 	printf("> Enter new class name > ");
@@ -187,11 +200,40 @@ void editClass(struct st_class* c[], int csize){
 // You must make all these functions.
 
 int applyMyClasses(int my[], int msize, struct st_class* c[], int csize){
+	int code;
+	int repeat=1;
 
+	while(repeat==1){
+		printf(">> Enter a class code > ");
+		scanf("%d", &code);
+		
+		int code_check = 0;
 
+		for(int i = 0; i<csize; i++){
+			if(code==my[i]&&i<=msize){ //일단 내가 수강신청한 부분에서만 동일한 코드 중복 검사여서 i<=msize 붙여놓음, 여기 문제는 0넣었을때 중복으로 나옴
+				code_check=2;
+				break;
+			}
+			if(code == c[i]->code){
+				code_check=1;
+				my[msize]=code;
+				msize++;
+				printf("[%d] %s [credit %d - %s]\n",c[i]->code, c[i]->name, c[i]->unit, kname[c[i]->grading-1]);
+			}
+		}
 
-	
-	return 0;
+		if(code_check==0){
+			printf("> No such class.\n");
+		}else if(code_check==1){
+			printf(">> Add more?(1:Yes 2:No) > ");
+			scanf("%d", &repeat);
+		}
+		else if(code_check==2){
+			printf(">> Already applied this class! Retry.\n");
+		}
+	}
+
+	return msize;
 }
 
 void printMyClasses(int my[], int msize, struct st_class* c[], int csize){
