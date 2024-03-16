@@ -209,11 +209,13 @@ int applyMyClasses(int my[], int msize, struct st_class* c[], int csize){
 		
 		int code_check = 0;
 
+		for(int j = 0; j<msize; j++){
+			if(code==my[j]) code_check=2;
+		}
+
 		for(int i = 0; i<csize; i++){
-			if(code==my[i]&&i<=msize){ //일단 내가 수강신청한 부분에서만 동일한 코드 중복 검사여서 i<=msize 붙여놓음, 여기 문제는 0넣었을때 중복으로 나옴
-				code_check=2;
-				break;
-			}
+			if(code_check==2) break;			
+
 			if(code == c[i]->code){
 				code_check=1;
 				my[msize]=code;
@@ -237,15 +239,55 @@ int applyMyClasses(int my[], int msize, struct st_class* c[], int csize){
 }
 
 void printMyClasses(int my[], int msize, struct st_class* c[], int csize){
+	struct st_class temp[msize];
 
+	for(int a=0; a<msize; a++){
+		for(int b=0; b<csize; b++){
+			if(my[a]==c[b]->code){
+				temp[a].code=c[b]->code;
+				strcpy(temp[a].name, c[b]->name);
+				temp[a].unit=c[b]->unit;
+				temp[a].grading=c[b]->grading;
+			}
+		}
+	}
 
-	
+	int credit_sum = 0;
 
+	for(int i=0; i<msize; i++){
+		printf("%d. [%d] %s [credit %d - %s]\n", i+1, temp[i].code, temp[i].name, temp[i].unit, kname[temp[i].grading-1]);
+		credit_sum += temp[i].unit;
+	}
+	printf("All : %d credits\n", credit_sum);
 }
 
 void saveMyClass(int my[], int msize, struct st_class* c[], int csize){
+	FILE* file;
+	file=fopen("my_classes.txt", "w");
+	struct st_class temp[msize];
+	int credit_sum = 0;
 
+	for(int a=0; a<msize; a++){
+		for(int b=0; b<csize; b++){
+			if(my[a]==c[b]->code){
+				temp[a].code=c[b]->code;
+				strcpy(temp[a].name, c[b]->name);
+				temp[a].unit=c[b]->unit;
+				temp[a].grading=c[b]->grading;
 
+			}
+		}
+	}
 
-	
+	int grade_count=0;
+	int pf_count=0;
+	for(int i=0; i<msize; i++){
+		fprintf(file, "%d. [%d] %s [credit %d - %s]\n", i+1, temp[i].code, temp[i].name, temp[i].unit, kname[temp[i].grading-1]);
+		credit_sum += temp[i].unit;
+		if(temp[i].grading==1) grade_count++;
+		else pf_count++;
+	}
+	fprintf(file, "All : %d classes, %d credits (A+~F %d credits, P/F %d credits)\n", msize, credit_sum, grade_count, pf_count);
+
+	fclose(file);
 }
