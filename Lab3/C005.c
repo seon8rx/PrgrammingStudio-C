@@ -122,7 +122,27 @@ int addChannel(struct st_channel* c[], int size){
 void printStatistics(struct st_channel* c[], int size){
 	printf("> Statistics of Channels\n");
 
+    int count[5] = {0};
+    int sum[5] = {0};
+    double avrg[5] = {0.0};
+    int max_count[5]={0};
+    char max_name[5][100];
 
+    for(int i=0; i<size; i++){
+        count[c[i]->level]++;
+        sum[c[i]->level] = sum[c[i]->level] + c[i]->count;
+        if(max_count[c[i]->level] < c[i]->count){
+            max_count[c[i]->level] = c[i]->count;
+            strcpy(max_name[c[i]->level], c[i]->name);
+        }
+    }
+    for(int a=0; a<5; a++){
+        avrg[a] = 1.0*sum[a]/count[a];
+    }
+
+    for(int r=0; r<5; r++){
+        printf("%s : %d channels, Average %.1f peoples, Top channel : %s (%d people)\n", LNAME[r], count[r], avrg[r], max_name[r], max_count[r]);
+    }
 
 
 }
