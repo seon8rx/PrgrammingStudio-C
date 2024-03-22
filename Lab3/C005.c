@@ -26,6 +26,8 @@ void updateChannel(struct st_channel* c[], int size);
 int deleteChannel(struct st_channel* c[], int size);
 void makeReport(struct st_channel* c[], int size); 
 
+void printStatisticsReport(struct st_channel* c[], int size, FILE* file);
+
 int main(void) {
 	int no;	// amount of channels
 	struct st_channel* clist[SIZE]; // channel list
@@ -284,5 +286,37 @@ void makeReport(struct st_channel* c[], int size){
 		fprintf(file, "\n[%2d] %-20s %10d peoples [%s]", i+1, c[i]->name, c[i]->count,LNAME[c[i]->level]);
 	}
 	printf("\n");
+	// fclose(file);
 
+	printStatisticsReport(c, size, file);
+}
+
+void printStatisticsReport(struct st_channel* c[], int size, FILE* file){
+	printf("\n> Statistics of Channels");
+
+    int count[5] = {0};
+    int sum[5] = {0};
+    double avrg[5] = {0.0};
+    int max_count[5]={0};
+    char max_name[5][100];
+
+    for(int i=0; i<size; i++){
+        count[c[i]->level]++;
+        sum[c[i]->level] = sum[c[i]->level] + c[i]->count;
+        if(max_count[c[i]->level] < c[i]->count){
+            max_count[c[i]->level] = c[i]->count;
+            strcpy(max_name[c[i]->level], c[i]->name);
+        }
+    }
+    for(int a=0; a<5; a++){
+        avrg[a] = 1.0*sum[a]/count[a];
+    }
+
+	// FILE* file;
+	// file=fopen("report.txt", "w");
+    for(int r=0; r<5; r++){
+        fprintf(file, "\n%s : %d channels, Average %.1f peoples, Top channel : %s (%d people)", LNAME[r], count[r], avrg[r], max_name[r], max_count[r]);
+    }
+
+	fclose(file);
 }
