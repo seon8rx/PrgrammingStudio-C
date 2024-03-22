@@ -222,22 +222,14 @@ void updateChannel(struct st_channel* c[], int size){
 	int no_chan = 0;
 	scanf("%d", &no_chan);
 
-	//struct st_channel* t;
-	while(1){
-		int check = 0;
-		if(1<=no_chan && no_chan<=size+1){
-			break;
-		}else{
-			printf("> No Channel No.%d\n", no_chan);
-			printf("> Modify a new Channel\n");
-			printf("> Enter a number of channel > ");
-			scanf("%d", &no_chan);
+	if(no_chan<=0 || no_chan>=size+1){
+		printf("> Wrong number.\n");
+		return;
 		}
-	}
 
 	printf("> Channel Info.\n");
 	printf("[%2d] %-20s %10d peoples [%s] \n", no_chan, c[no_chan-1]->name, c[no_chan-1]->count,LNAME[c[no_chan-1]->level]);
-	printf("> Enter new name of channel > ");
+	printf("> Enter a new name of channel > ");
 	scanf("%s", c[no_chan-1]->name);
 	printf("> Enter a new amount of peoples > ");
 	scanf("%d", &(c[no_chan-1]->count));
@@ -278,6 +270,15 @@ int deleteChannel(struct st_channel* c[], int size){
 
 
 void makeReport(struct st_channel* c[], int size){
+	FILE* f;
+	f=fopen("channels.txt", "w");
+	for(int i=0; i<size; i++){
+		fprintf(f, "%s %d", c[i]->name, c[i]->count);
+		if(i!=size-1) fprintf(f, "\n");
+	}
+	fclose(f);
+	printf("> All information of channels are saved into channels.txt\n");
+
 	FILE* file;
 	file=fopen("report.txt", "w");
 	
