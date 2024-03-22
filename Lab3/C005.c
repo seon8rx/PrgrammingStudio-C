@@ -285,14 +285,14 @@ void makeReport(struct st_channel* c[], int size){
 	for(int i=0; i<size; i++){
 		fprintf(file, "\n[%2d] %-20s %10d peoples [%s]", i+1, c[i]->name, c[i]->count,LNAME[c[i]->level]);
 	}
-	printf("\n");
+	fprintf(file, "\n");
 	// fclose(file);
 
 	printStatisticsReport(c, size, file);
 }
 
 void printStatisticsReport(struct st_channel* c[], int size, FILE* file){
-	printf("\n> Statistics of Channels");
+	fprintf(file, "\nStatistics of Channels");
 
     int count[5] = {0};
     int sum[5] = {0};
@@ -319,4 +319,5 @@ void printStatisticsReport(struct st_channel* c[], int size, FILE* file){
     }
 
 	fclose(file);
+	printf("> Channel Statistics are saved into report.txt.\n");
 }
