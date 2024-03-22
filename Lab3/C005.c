@@ -276,6 +276,13 @@ int deleteChannel(struct st_channel* c[], int size){
 
 
 void makeReport(struct st_channel* c[], int size){
-
+	FILE* file;
+	file=fopen("report.txt", "w");
+	
+	fprintf(file, "Channel List");
+	for(int i=0; i<size; i++){
+		fprintf(file, "\n[%2d] %-20s %10d peoples [%s]", i+1, c[i]->name, c[i]->count,LNAME[c[i]->level]);
+	}
+	printf("\n");
 
 }
