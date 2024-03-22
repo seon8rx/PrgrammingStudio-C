@@ -180,6 +180,7 @@ void pickupRandomChannels(struct st_channel* c[], int size){
 		printf("[%d] %s (%s, %d peoples)\n", r[i]+1, c[r[i]]->name, LNAME[c[r[i]]->level], c[r[i]]->count);
 	}
 }
+
 void searchChannel(struct st_channel* c[], int size){
 	printf("> Search Channels\n");
 	printf("> Choose one (1:by peoples 2:by names) > ");
