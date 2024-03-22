@@ -151,9 +151,34 @@ void pickupRandomChannels(struct st_channel* c[], int size){
 	printf("> Pick up Channels\n");
 	printf("> How much channels you want to pick up? > ");
 
+	int num;
+	scanf("%d", &num);
+	
+	int r[num];
+	int count = 0;
+	int random_no;
+	int check = 0;
+	while(count<num){
+		random_no = rand()%size;
+		if(count==0){
+			r[count] = random_no;
+			count++;
+		}else{
+			for(int i=0; i<count; i++){
+				if(random_no==r[i]) check=1;
+			}
+			if(check==0){
+				r[count] = random_no;
+				count++;
+			}
+		}
+		check=0;
+	}
 
-
-
+	printf("Random Channels\n");
+	for(int i=0; i<num; i++){
+		printf("[%d] %s (%s, %d peoples)\n", r[i]+1, c[r[i]]->name, LNAME[c[r[i]]->level], c[r[i]]->count);
+	}
 }
 void searchChannel(struct st_channel* c[], int size){
 	printf("> Search Channels\n");
