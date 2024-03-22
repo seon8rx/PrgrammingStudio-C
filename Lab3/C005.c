@@ -217,8 +217,30 @@ printf("> %d channels are found.\n", count);
 void updateChannel(struct st_channel* c[], int size){
 	printf("> Modify a new Channel\n");
 	printf("> Enter a number of channel > ");
+	int no_chan = 0;
+	scanf("%d", &no_chan);
 
+	//struct st_channel* t;
+	while(1){
+		int check = 0;
+		if(1<=no_chan && no_chan<=size+1){
+			break;
+		}else{
+			printf("> No Channel No.%d\n", no_chan);
+			printf("> Modify a new Channel\n");
+			printf("> Enter a number of channel > ");
+			scanf("%d", &no_chan);
+		}
+	}
 
+	printf("> Channel Info.\n");
+	printf("[%2d] %-20s %10d peoples [%s] \n", no_chan, c[no_chan-1]->name, c[no_chan-1]->count,LNAME[c[no_chan-1]->level]);
+	printf("> Enter new name of channel > ");
+	scanf("%s", c[no_chan-1]->name);
+	printf("> Enter a new amount of peoples > ");
+	scanf("%d", &(c[no_chan-1]->count));
+	c[no_chan-1]->level=findLevel(c[no_chan-1]->count);
+	printf("> Channel info. is modified.\n");
 }
 
 int deleteChannel(struct st_channel* c[], int size){
