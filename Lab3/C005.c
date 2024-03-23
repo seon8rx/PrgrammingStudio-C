@@ -195,6 +195,7 @@ void searchChannel(struct st_channel* c[], int size){
 		int search_from;
 		printf(">Enter the range of peoples (from ~ to) > ");
 		scanf("%d %d", &search_from, &search_to);
+		printf("> Result:\n");
 		for(int i=0; i<size; i++){
 			if(search_from<=c[i]->count && c[i]->count<=search_to){
 				printf("[%2d] %-20s %10d peoples [%s] \n",i+1, c[i]->name, c[i]->count,LNAME[c[i]->level]);
@@ -205,6 +206,7 @@ void searchChannel(struct st_channel* c[], int size){
 		char search[30];
 		printf("> Enter a name > ");
 		scanf("%s", search);
+		printf("> Result:\n");
 		for(int i=0; i<size; i++){
 			if(strstr(c[i]->name, search)){
 				printf("[%2d] %-20s %10d peoples [%s] \n",i+1, c[i]->name, c[i]->count,LNAME[c[i]->level]);
