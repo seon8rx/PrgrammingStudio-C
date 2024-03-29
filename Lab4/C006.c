@@ -13,7 +13,7 @@ int main(void){
         scanf("%d", &menu);
 
         if(menu==1) readMembers(mlist, no);
-        else if(menu==2) printf("\n");
+        else if(menu==2) updateMember(mlist, no);
         else break;
     }
 
