@@ -41,7 +41,7 @@ void updateMember(Member* m[], int size){
 		}
     
     printf("Information of the member > ");
-    printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem+1, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
+    printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
     for(int p=0; p<strlen(m[no_mem-1]->password); p++){
             printf("*");
         }
