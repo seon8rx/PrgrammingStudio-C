@@ -70,7 +70,7 @@ void makeReport(Member* m[], int size){
     file = fopen("report.txt", "w");
 
     int male=0, female=0, age_sum=0, male_age_sum=0, female_age_sum=0;
-    double age_avg=0.0;
+    double age_avg=0.0, male_age_avg=0.0, female_age_avg=0.0;
 
     for(int i=0; i<size; i++){
         fprintf(file, "[%2d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", i+1, m[i]->name, m[i]->age, GENDER[m[i]->g], m[i]->email);
@@ -84,10 +84,15 @@ void makeReport(Member* m[], int size){
     }
 
     age_avg = 1.0*age_sum/size;
+    male_age_avg = 1.0*male_age_avg/male;
+    female_age_avg = 1.0*female_age_avg/female;
 
+    fprintf(file, "%d members, avarage age = %.1f\n", size, age_avg);
+    fprintf(file, "%d male members, average age of males = %.1f\n", male, male_age_avg);
+    fprintf(file, "%d female members, average age of females = %.1f\n", female, female_age_avg);
 
 
     fclose(file);
 
-    printf("\nInformation is saved in member_list.txt file.\n");
+    printf("\nInformation is reported in report.txt file.\n");
 }
