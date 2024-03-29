@@ -31,31 +31,73 @@ void readMembers(Member* m[], int size){
 
 void updateMember(Member* m[], int size){
     printf("> Modify the informatioin for a member\n");
-	printf("> Enter a number representing the position of the member in the list > ");
+	printf("> Enter a number of member in the list > ");
 	int no_mem = 0;
 	scanf("%d", &no_mem);
 
 	if(no_mem<=0 || no_mem>=size+1){
 		printf("> %d is not in the list.\n", no_mem);
 		return;
-		}
+    }
     
     printf("Information of the member > ");
     printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
     for(int p=0; p<strlen(m[no_mem-1]->password); p++){
-            printf("*");
-        }
+        printf("*");
+    }
+    printf("\n");
 
-    printf("> Modify this member's NAME info. > ");
+    printf("> Enter his/her NAME info. > ");
 	scanf("%s", m[no_mem-1]->name);
-	printf("> Modify this member's AGE info. > ");
+	printf("> Enter his/her AGE info. > ");
 	scanf("%d", &(m[no_mem-1]->age));
-	printf("> Modify this member's GENDER info. (MALE: 0, FEMALE: 1) > ");
+	printf("> Enter his/her GENDER info. (MALE: 0, FEMALE: 1) > ");
     scanf("%d", &(m[no_mem-1]->g));
-    printf("> Modify this member's E-MAIL info. > ");
+    printf("> Enter his/her E-MAIL info. > ");
     scanf("%s", m[no_mem-1]->email);
-    printf("> Modify this member's PASSWORD info. > ");
+    printf("> Enter his/her PASSWORD info. > ");
     scanf("%s", m[no_mem-1]->password);
 
 	printf("\n> Member info. is modified.\n");
+}
+
+int deleteMember(Member* m[], int size){
+    int no_mem, yesno;
+    printf("> Delete information for a member\n");
+    printf("> Enter a number of member in the list > ");
+    scanf("%d", &no_mem);
+
+    if(no_mem<=0 || no_mem>=size+1){
+		printf("> %d is not in the list.\n", no_mem);
+		return size;
+    }
+        
+    printf("Information of the member > ");
+    printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
+    for(int p=0; p<strlen(m[no_mem-1]->password); p++){
+        printf("*");
+    }
+    printf("\n");
+
+    printf("> Do you want to delete this information? (1:Yes 0:No) > ");
+    scanf("%d", &yesno);
+	if(yesno==0){
+		printf("> Canceled.\n");
+		return size;
+    }else{
+        if(no_mem==size){
+            printf("> Information is deleted.\n");
+            return size-1;
+        }else{
+            for(int d=no_mem-1; d<size-1; d++){
+                strcpy(m[d]->name, m[d+1]->name);
+                m[d]->age = m[d+1]->age;
+                m[d]->g = m[d+1]->g;
+                strcpy(m[d]->email, m[d+1]->email);
+                strcpy(m[d]->password, m[d+1]->password);
+            }
+        }
+        printf("> Information is deleted.\n");
+        return size-1;
+    }
 }
