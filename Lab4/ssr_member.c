@@ -96,3 +96,42 @@ void makeReport(Member* m[], int size){
 
     printf("\nInformation is reported in report.txt file.\n");
 }
+
+void pickupRandomMember(Member* m[], int size){
+    srand(time(0));
+
+    printf("> Pick up RANDOM members\n");
+    printf("> How many members you want to pick up? > ");
+
+    int input;
+    scanf("%d", &input);
+
+    int ran[input];
+    int count=0;
+    int random_no;
+    int check=0;
+
+    while(count<input){
+        random_no = rand()%size;
+	if(count==0){
+	    ran[count]=random_no;
+	    count++;
+        }else{
+	    for(int i=0; i<count; i++){
+                if(random_no==ran[i]) check=1;
+            }
+	    if(check==0){
+	        ran[count] = random_no;
+		count++;
+	    }
+        }
+      check=0;
+    }
+
+    printf("Random Members\n");
+    for(int i=0; i<input; i++){
+	printf(">>> [%d] name: %20s, age: %d, gender: %6s, e-mail: %s, pw: ", ran[i]+1, m[ran[i]]->name, m[ran[i]]->age, m[ran[i]]->age, GENDER[m[ran[i]]->g], m[ran[i]]->email, m[ran[i]]->password);
+        for(int p=0; p<strlen(m[ran[i]]->password); p++) printf("*");
+    }
+    printf("\n");
+}
