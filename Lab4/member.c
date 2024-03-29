@@ -40,12 +40,7 @@ void updateMember(Member* m[], int size){
 		return;
     }
     
-    printf("Information of the member > ");
-    printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
-    for(int p=0; p<strlen(m[no_mem-1]->password); p++){
-        printf("*");
-    }
-    printf("\n");
+    provideInfo(m, no_mem);
 
     printf("> Enter his/her NAME info. > ");
 	scanf("%s", m[no_mem-1]->name);
@@ -72,12 +67,7 @@ int deleteMember(Member* m[], int size){
 		return size;
     }
         
-    printf("Information of the member > ");
-    printf("[%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", no_mem, m[no_mem-1]->name, m[no_mem-1]->age, GENDER[m[no_mem-1]->g], m[no_mem-1]->email);
-    for(int p=0; p<strlen(m[no_mem-1]->password); p++){
-        printf("*");
-    }
-    printf("\n");
+    provideInfo(m, no_mem);
 
     printf("> Do you want to delete this information? (1:Yes 0:No) > ");
     scanf("%d", &yesno);
@@ -100,4 +90,13 @@ int deleteMember(Member* m[], int size){
         printf("> Information is deleted.\n");
         return size-1;
     }
+}
+
+void provideInfo(Member* m[], int i){
+    printf("\n>>> Information of the member\n");
+    printf(">>> [%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", i, m[i-1]->name, m[i-1]->age, GENDER[m[i-1]->g], m[i-1]->email);
+    for(int p=0; p<strlen(m[i-1]->password); p++){
+        printf("*");
+    }
+    printf("\n\n");
 }
