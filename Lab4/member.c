@@ -14,7 +14,7 @@ int createData(Member* m[]){
         count++;
     }
     fclose(file);
-    printf("\n> THE INFORMATION FOR \"%d MEMBERS\" IS READY.", count);
+    printf("\n>> THE INFORMATION FOR \"%d MEMBERS\" IS READY. <<", count);
     return count;
 }
 
@@ -30,7 +30,7 @@ void readMembers(Member* m[], int size){
 }
 
 void updateMember(Member* m[], int size){
-    printf("> Modify the informatioin for a member\n");
+    printf("\n> Modify the informatioin for a member\n");
 	printf("> Enter a number of member in the list > ");
 	int no_mem = 0;
 	scanf("%d", &no_mem);
@@ -40,14 +40,16 @@ void updateMember(Member* m[], int size){
 		return;
     }
     
+    printf("\n>>> Information of the member\n");
     provideInfo(m, no_mem);
 
-    printf("> Enter his/her NAME info. > ");
+    printf("\n> Enter his/her NAME info. > ");
 	scanf("%s", m[no_mem-1]->name);
 	printf("> Enter his/her AGE info. > ");
 	scanf("%d", &(m[no_mem-1]->age));
-	printf("> Enter his/her GENDER info. (MALE: 0, FEMALE: 1) > ");
+	printf("> Enter his/her GENDER info. (MALE: 1, FEMALE: 2) > ");
     scanf("%d", &(m[no_mem-1]->g));
+    (m[no_mem-1]->g)--;
     printf("> Enter his/her E-MAIL info. > ");
     scanf("%s", m[no_mem-1]->email);
     printf("> Enter his/her PASSWORD info. > ");
@@ -67,14 +69,15 @@ int deleteMember(Member* m[], int size){
 		return size;
     }
         
+    printf("\n>>> Information of the member\n");
     provideInfo(m, no_mem);
 
-    printf("> Do you want to delete this information? (1:Yes 0:No) > ");
+    printf("\n> Do you want to delete this information? (1:Yes 2:No) > ");
     scanf("%d", &yesno);
-	if(yesno==0){
+	if(yesno==2){
 		printf("> Canceled.\n");
 		return size;
-    }else{
+    }else if(yesno==1){
         if(no_mem==size){
             printf("> Information is deleted.\n");
             return size-1;
@@ -89,14 +92,67 @@ int deleteMember(Member* m[], int size){
         }
         printf("> Information is deleted.\n");
         return size-1;
+    }else{
+        printf("%d is not in your options.\n", yesno);
+        return size;
     }
 }
 
 void provideInfo(Member* m[], int i){
-    printf("\n>>> Information of the member\n");
     printf(">>> [%d] name: %20s, age: %d, gender: %6s : e-mail: %s, pw: ", i, m[i-1]->name, m[i-1]->age, GENDER[m[i-1]->g], m[i-1]->email);
     for(int p=0; p<strlen(m[i-1]->password); p++){
         printf("*");
     }
-    printf("\n\n");
+    printf("\n");
+}
+
+void searchMember(Member* m[], int size){
+    printf("> Search member(s)\n");
+    printf("> Choose one (1:by name, 2:by age, 3:by gender) > ");
+    int input;
+    scanf("%d", &input);
+
+    int r=0;
+
+    if(input == 1){
+        char search[20];
+        printf("> Enter a name > ");
+        scanf("%s", search);
+        printf("> Result : \n");
+
+        for(int i=0; i<size; i++){
+            if(strstr(m[i]->name, search)){
+                provideInfo(m, i+1);
+                r++;
+            }
+        }
+    }else if(input == 2){
+        int search;
+        printf("> Enter age > ");
+        scanf("%d", &search);
+        printf("> Result : \n");
+
+        for(int i=0; i<size; i++){
+            if(m[i]->age==search){
+                provideInfo(m, i+1);
+                r++;
+            }
+        }
+    }else if(input == 3){
+        int search;
+        printf("> Enter gender type (1:MALE , 2:FEMALE) > ");
+        scanf("%d", &search);
+        printf("> Result : \n");
+
+        for(int i=0; i<size; i++){
+            if(m[i]->g==search-1){
+                provideInfo(m, i+1);
+                r++;
+            }
+        }
+    }else{
+        printf("> %d is not in your options\n", input);
+    }
+
+    if(r!=0) printf("> %d member(s) is/are found.\n", r);
 }

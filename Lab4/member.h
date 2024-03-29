@@ -19,3 +19,6 @@ void readMembers(Member* m[], int size);
 void updateMember(Member* m[], int size);
 int deleteMember(Member* m[], int size);
 void provideInfo(Member* m[], int i);
+
+void searchMember(Member* m[], int size);
+void saveInfo(Member* m[], int size);
