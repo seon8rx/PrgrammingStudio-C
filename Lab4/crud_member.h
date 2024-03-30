@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #define SIZE 30
 
 char GENDER[2][30];
@@ -21,3 +22,5 @@ int deleteMember(Member* m[], int size);
 void provideInfo(Member* m[], int i);
 void searchMember(Member* m[], int size);
 void saveInfo(Member* m[], int size);
+void makeReport(Member* m[], int size);
+void pickupRandomMember(Member* m[], int size);
