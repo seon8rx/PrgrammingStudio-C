@@ -183,13 +183,19 @@ void makeReport(Member* m[], int size){
         }
         fprintf(file, "\n");
 
-        if(m[i]->g==0){male++; male_age_sum+=m[i]->age; age_sum += m[i]->age;}
-        else if(m[i]->g==1){female++; female_age_sum+=m[i]->age; age_sum += m[i]->age;}
+        if(m[i]->g==0){
+            male++;
+            male_age_sum += m[i]->age;
+            age_sum += m[i]->age;}
+        else if(m[i]->g==1){
+            female++;
+            female_age_sum+=m[i]->age;
+            age_sum += m[i]->age;}
     }
 
     age_avg = 1.0*age_sum/size;
-    male_age_avg = 1.0*male_age_avg/male;
-    female_age_avg = 1.0*female_age_avg/female;
+    male_age_avg = 1.0*male_age_sum/male;
+    female_age_avg = 1.0*female_age_sum/female;
 
     fprintf(file, "%d members, avarage age = %.1f\n", size, age_avg);
     fprintf(file, "%d male members, average age of males = %.1f\n", male, male_age_avg);
