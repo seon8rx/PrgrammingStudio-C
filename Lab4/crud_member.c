@@ -248,3 +248,24 @@ void pickupRandomMember(Member* m[], int size){
         }
     }
 }
+
+int addNewMember(Member* m[], int size){
+    Member* temp;
+    printf("> Add a new Member\n");
+    temp = (Member*)malloc(sizeof(Member));
+    printf("\n> Enter his/her NAME info. > ");
+	scanf("%s", temp->name);
+	printf("> Enter his/her AGE info. > ");
+	scanf("%d", &(temp->age));
+	printf("> Enter his/her GENDER info. (MALE: 1, FEMALE: 2) > ");
+    scanf("%d", &(temp->g));
+    (temp->g)--;
+    printf("> Enter his/her E-MAIL info. > ");
+    scanf("%s", temp->email);
+    printf("> Enter his/her PASSWORD info. > ");
+    scanf("%s", temp->password);
+    m[size] = temp;
+    printf("> !New Member's information is added.\n");
+    return size+1;
+
+}

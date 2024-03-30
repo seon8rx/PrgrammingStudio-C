@@ -9,16 +9,17 @@ int main(void){
     no = createData(mlist);
 
     while(1){
-        printf("\n[1. List] [2. Modify] [3. Delete] [4. Search] [5. Save] [6. Report] [7. Random Pick] [0. Exit]\n>> Enter a menu >> ");
+        printf("\n[1. List] [2. Modify] [3. Add] [4. Delete] [5. Search] [6. Save] [7. Report] [8. Random Pick] [0. Exit]\n>> Enter a menu >> ");
         scanf("%d", &menu);
 
         if(menu==1) readMembers(mlist, no);
         else if(menu==2) updateMember(mlist, no);
-        else if(menu==3) no = deleteMember(mlist, no);
-        else if(menu==4) searchMember(mlist, no);
-        else if(menu==5) saveInfo(mlist, no);
-        else if(menu==6) makeReport(mlist,no);
-        else if(menu==7) pickupRandomMember(mlist, no);
+        else if(menu==3) no = addNewMember(mlist, no);
+        else if(menu==4) no = deleteMember(mlist, no);
+        else if(menu==5) searchMember(mlist, no);
+        else if(menu==6) saveInfo(mlist, no);
+        else if(menu==7) makeReport(mlist,no);
+        else if(menu==8) pickupRandomMember(mlist, no);
         else break;
     }
 

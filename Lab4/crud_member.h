@@ -24,3 +24,4 @@ void searchMember(Member* m[], int size);
 void saveInfo(Member* m[], int size);
 void makeReport(Member* m[], int size);
 void pickupRandomMember(Member* m[], int size);
+int addNewMember(Member* m[], int size);
